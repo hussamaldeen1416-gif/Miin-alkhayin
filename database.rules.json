@@ -1,0 +1,10 @@
+{
+  "rules": {
+    "p": {
+      ".read": "auth != null",
+      "$peer": {
+        ".write": "auth != null && $peer.beginsWith(auth.uid + '_')"
+      }
+    }
+  }
+}
