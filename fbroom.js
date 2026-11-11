@@ -122,6 +122,9 @@
         setTimeout(() => { rebuild(); fn({peers:snap, joined:snap, left:[], updated:[]}); if(failed && onErr) onErr({code:'not_granted', fb:failed.code || 'x'}); }, 0);
         return () => peerLs.delete(o);
       },
+      // cloud save (path like s/ABCD2345 — allowed by the database rules)
+      async cloudGet(path){ const sn=await api.get(api.ref(db, path)); return sn.exists() ? sn.val() : null; },
+      cloudSet(path, val){ return api.set(api.ref(db, path), val); },
       connected(){ return connected; },
       onConnection(fn){ connLs.add(fn); setTimeout(() => fn(connected), 0); return () => connLs.delete(fn); },
     };

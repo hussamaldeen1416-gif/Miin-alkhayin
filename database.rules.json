@@ -5,6 +5,13 @@
       "$peer": {
         ".write": "auth != null && $peer.beginsWith(auth.uid + '_')"
       }
+    },
+    "s": {
+      "$code": {
+        ".read": "auth != null",
+        ".write": "auth != null && $code.matches(/^[A-Z2-9]{8}$/)",
+        ".validate": "newData.child('d').isString() && newData.child('d').val().length < 6000 && newData.child('t').isNumber()"
+      }
     }
   }
 }
